@@ -1,0 +1,16 @@
+
+mod symbol {
+
+open symbol;
+
+let symbol+ = expr;
+
+}
+
+expr = expr expr
+     | fun symbol* -> expr
+     | let symbol+ = expr in expr
+     | number
+     | string
+     | ( expr )
+
