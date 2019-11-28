@@ -21,6 +21,13 @@ lex_symbol([S|Rest], Chars, Tokens) when not ?is_symbol(S) ->
 lex_symbol([S|Rest], Chars, Tokens) when ?is_symbol(S) -> 
     lex_symbol(Rest, [S|Chars], Tokens).
 
+% string
+lex_string([], Chars, Tokens) -> {fail, eof, 0};
+lex_string([$"|Rest], Chars, Tokens) ->
+    lex(Rest, [{string, lists:reverse(Chars)}|Tokens]);
+lex_string([V|Rest], Chars, Tokens) ->
+    lex_string(Rest, [V|Chars], Tokens).
+
 % white space 
 lex([$ |Rest], Tokens) -> lex(Rest, Tokens);
 lex([$\r|Rest], Tokens) -> lex(Rest, Tokens);
@@ -39,6 +46,9 @@ lex([$-,$>|Rest], Tokens) -> lex(Rest, [rarrow|Tokens]);
 
 % symbol
 lex([S|Rest], Tokens) when ?is_start_symbol(S) -> lex_symbol(Rest, [S], Tokens);
+
+% string
+lex([$"|Rest], Tokens) -> lex_string(Rest, [], Tokens);
 
 % end of file
 lex([], Tokens) -> {ok, Tokens};
