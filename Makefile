@@ -1,7 +1,8 @@
 
 all: 
 	erlc main.erl
-	erlc lexer.erl	
+	erlc lexer.erl
+	erlc test.erl
 
 run:
 	erl -s main start
