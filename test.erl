@@ -3,9 +3,9 @@
 -export([start/0]).
 
 lex_symbol() -> 
-    Input = "symbol",
+    Input = "symbol_123",
     {ok, Tokens} = lexer:lex(Input),
-    [{symbol, "symbol"}] = Tokens,
+    [{symbol, "symbol_123"}] = Tokens,
     ok.
 
 start() -> 
