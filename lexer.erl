@@ -38,7 +38,7 @@ lex_int([], Chars, Tokens) ->
 lex_int([N|Rest], Chars, Tokens) when not ?is_int(N) -> 
     lex([N|Rest], [{int, lists:reverse(Chars)}|Tokens]);
 lex_int([N|Rest], Chars, Tokens) when ?is_int(N) -> 
-    lex_symbol(Rest, [N|Chars], Tokens).
+    lex_int(Rest, [N|Chars], Tokens).
 
 % white space 
 lex([$ |Rest], Tokens) -> lex(Rest, Tokens);
