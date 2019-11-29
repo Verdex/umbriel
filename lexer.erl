@@ -22,7 +22,7 @@ lex_symbol([S|Rest], Chars, Tokens) when ?is_symbol(S) ->
     lex_symbol(Rest, [S|Chars], Tokens).
 
 % string
-lex_string([], Chars, Tokens) -> {fail, eof, 0};
+lex_string([], _, _) -> {fail, eof, 0};
 lex_string([$"|Rest], Chars, Tokens) ->
     lex(Rest, [{string, lists:reverse(Chars)}|Tokens]);
 lex_string([V|Rest], Chars, Tokens) ->
