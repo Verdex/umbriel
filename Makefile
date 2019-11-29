@@ -2,6 +2,7 @@
 all: 
 	erlc main.erl
 	erlc lexer.erl
+	erlc parser.erl
 	erlc test.erl
 
 run:
