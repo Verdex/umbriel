@@ -55,6 +55,7 @@ lex([$)|Rest], Tokens) -> lex(Rest, [rparen|Tokens]);
 % punctuation 
 lex([$=|Rest], Tokens) -> lex(Rest, [equal|Tokens]);
 lex([$-,$>|Rest], Tokens) -> lex(Rest, [rarrow|Tokens]);
+lex([$;|Rest], Tokens) -> lex(Rest, [semicolon|Tokens]);
 
 % symbol
 lex([S|Rest], Tokens) when ?is_start_symbol(S) -> lex_symbol(Rest, [S], Tokens);
