@@ -2,6 +2,14 @@
 -module(parser).
 -export([parse/1]).
 
+% parse expr
+parse_expr([{string, Value}|Rest]) -> {ok, {string, Value}, Rest};
+parse_expr([{int, Value}|Rest]) -> {ok, {int, Value}, Rest};
+parse_expr([{symbol, Value}|Rest]) -> {ok, {var, Value}, Rest};
+parse_expr([]) -> fail.
+
+
+
 % parse let parameter list
 parse_let_param_list([{symbol, Name}|Rest], Params) -> 
     parse_let_param_list(Rest, [{param, Name}|Params]);
@@ -14,7 +22,11 @@ parse_module_items([{symbol, "let"}, {symbol, ValName}|Rest], Items) ->
         {ok, Params, ParamRest} -> ok;
         Else -> fail
     end,
-
+    
+    case parse_expr(Rest) of
+        {ok, Expr, ExprRest} -> ok;
+        Else -> fail
+    end.
 
 
 % parse open
